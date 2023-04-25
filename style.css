@@ -6,6 +6,7 @@
   display: inline-block;
   color: white;
   border-radius: 10px;
+  background-color: burlywood;
 }
 
 div div:hover {
@@ -13,7 +14,7 @@ div div:hover {
 }
 
 h1 {
-  background-color: Moccasin;
+  background-color: burlywood;
   color: black;
   font-family: 'Lora', serif;
   display: flex;
@@ -31,11 +32,11 @@ h1 {
 }
 
 body {
-  background-color: Moccasin;
+  background-color: burlywood;
 }
 
 h2 {
-  background-color: Moccasin;
+  background-color: burlywood;
   color: black;
   font-family: 'Lora', serif;
 }
