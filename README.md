@@ -32,3 +32,11 @@ Make sure to read through the code before continuing on!
 <li>Make sure this works only if you click on two different cards — clicking the same card twice shouldn’t count as a match!)</li>
 <li>Make sure that you can not click too quickly and guess more than two cards at a time.</li>
 </ul>
+
+# Further Study
+<ul>
+<li>Add a button that when clicked will start the game</li>
+<li>Add a button that when clicked will restart the game once it has ended</li>
+<li>For every guess made, increment a score variable and display the score while the game is played</li>
+<li>Store the lowest-scoring game in local storage, so that players can see a record of the best game played.</li>
+</ul>
