@@ -217,5 +217,6 @@ document.addEventListener("DOMContentLoaded", function(){
   highScore();                       // loads previous high score (if any)
 })
 
+// for troubleshooting:
 // let cards = document.querySelectorAll("div div");
 // localStorage.setItem("highScore", 0);
