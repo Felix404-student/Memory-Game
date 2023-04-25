@@ -1,5 +1,6 @@
 # Memory-Game
 Assignment "Memory Game" for UMass/Springboard Bootcamp
+
 Written in HTML, CSS, and JavaScript
 
 Players will be shown a collection of cards, face down, and can click on a card to reveal what’s underneath.
