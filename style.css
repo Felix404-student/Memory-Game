@@ -1,0 +1,41 @@
+#game div {
+  border: 2px solid black;
+  width: 11%;
+  height: calc(95vh / 4);
+  margin: 8px;
+  display: inline-block;
+  color: white;
+  border-radius: 10px;
+}
+
+div div:hover {
+  cursor: pointer;
+}
+
+h1 {
+  background-color: Moccasin;
+  color: black;
+  font-family: 'Lora', serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reset {
+  float: right;
+}
+
+.cardback {
+  background-image: url("cardback.png");
+  background-size: 100% 100%;
+}
+
+body {
+  background-color: Moccasin;
+}
+
+h2 {
+  background-color: Moccasin;
+  color: black;
+  font-family: 'Lora', serif;
+}
