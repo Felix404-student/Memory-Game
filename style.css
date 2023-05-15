@@ -6,7 +6,7 @@
   display: inline-block;
   color: white;
   border-radius: 10px;
-  background-color: burlywood;
+  background-color: BlanchedAlmond;
 }
 
 div div:hover {
@@ -14,7 +14,7 @@ div div:hover {
 }
 
 h1 {
-  background-color: burlywood;
+  background-color: BlanchedAlmond;
   color: black;
   font-family: 'Lora', serif;
   display: flex;
@@ -32,11 +32,11 @@ h1 {
 }
 
 body {
-  background-color: burlywood;
+  background-color: BlanchedAlmond;
 }
 
 h2 {
-  background-color: burlywood;
+  background-color: BlanchedAlmond;
   color: black;
   font-family: 'Lora', serif;
 }
