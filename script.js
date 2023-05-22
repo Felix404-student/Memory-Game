@@ -110,7 +110,7 @@ function handleCardClick(event) {
     // increments on-screen guess counter
     clickCounter++;
     let count = document.getElementById("guesses");
-    count.innerText = ("Guesses: "+clickCounter);
+    count.firstChild.data = ("Guesses: "+clickCounter);
   } else {
     return;
   }
