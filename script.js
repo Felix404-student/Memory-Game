@@ -20,7 +20,6 @@ let lastClicked = null;
 let score = 0;
 
 // list of colors for cards, determines how many cards get created.
-// all colors must be in the list twice.
 const COLORS = [
   "maroon",
   "midnightblue",
@@ -33,24 +32,12 @@ const COLORS = [
   "teal",
   "cyan",
   "white",
-  "maroon",
   "royalblue",
-  "midnightblue",
-  "gold",
-  "darkorange",
-  "purple",
-  "black",
-  "grey",
-  "cyan",
-  "magenta",
-  "teal",
-  "white",
-  "royalblue"
 ];
 
 // here is a helper function to shuffle an array
 // it returns the same array with values shuffled
-// it is based on an algorithm called Fisher Yates if you want ot research more
+// based on Fisher Yates algorithm
 function shuffle(array) {
   let counter = array.length;
 
@@ -58,9 +45,7 @@ function shuffle(array) {
   while (counter > 0) {
     // Pick a random index
     let index = Math.floor(Math.random() * counter);
-
-    // Decrease counter by 1
-    counter--;
+    counter--;  // Decrease counter by 1
 
     // And swap the last element with it
     let temp = array[counter];
@@ -77,35 +62,44 @@ function shuffle(array) {
 function createDivsForColors(colorArray) {
   for (let color of colorArray) {
     // create a new div
-    const newDiv = document.createElement("div");
+    const cardDiv = document.createElement("div");
+    const cardFrontDiv = document.createElement("div");
+    const cardBackDiv = document.createElement("div");
 
-    // give it a class attribute for the value we are looping over
-    newDiv.classList.add(color);
-    newDiv.style.backgroundColor = color;
+    // give the front div a class attribute for the value we are looping over
+    cardFrontDiv.classList.add(color);
+    cardFrontDiv.style.backgroundColor = color;
+    cardFrontDiv.classList.add("card-front");
 
     //sets the card backs to Hearthstone theme
-    newDiv.classList.add("cardback");
+    cardBackDiv.classList.add("card-back");
 
-    // call a function handleCardClick when a div is clicked on
-    //newDiv.addEventListener("click", handleCardClick);
+    // builds the card-front-back HTML hierarchy
+    cardDiv.classList.add("game-card");
+    cardDiv.append(cardFrontDiv);
+    cardDiv.append(cardBackDiv);
 
-    // starting value of hidden value "matched"
-    newDiv.dataset.matched = "false";
+    // starting values of whether card is flipped, and matched
+    cardDiv.dataset.matched = "false";
+    cardDiv.dataset.flipped = "false";
+    //cardDiv.classList.add('flip');
 
-    // append the div to the element with an id of game
-    gameContainer.append(newDiv);
+
+    // append the card div to the element with an id of game
+    gameContainer.append(cardDiv);
   }
 }
 
 // event handler for clicking a card
 // runs most of the game
 function handleCardClick(event) {
+  const card = event.target.parentElement;
 
   // tracker for clicks while testing. disabled for normal use
-  //console.log("you just clicked", event.target.className);
+  // console.log("you just clicked", card);
 
   // flipped yet?
-  if (event.target.classList.contains("cardback")) {
+  if (card.dataset.flipped === "false") {
 
     // increments on-screen guess counter
     clickCounter++;
@@ -115,36 +109,41 @@ function handleCardClick(event) {
     return;
   }
   // 1st card
-  if (clickCounter % 2 != 0){
-    event.target.classList.remove("cardback");
-    lastClicked = event.target;
+  if (clickCounter % 2 != 0) {
+    card.classList.add("flip");
+    card.dataset.flipped = true;
+    lastClicked = card;
 
   } else { // 2nd card
-    event.target.classList.remove("cardback");
-    let cards = document.querySelectorAll("div div");
+    card.classList.add("flip");
+    card.dataset.flipped = true;
     removeClickEvent();
 
     // match found
-    if (event.target.classList[0] == lastClicked.classList[0]){
-      event.target.dataset.matched = "true";
+    if (card.firstChild.classList[0] == lastClicked.firstChild.classList[0]) {
+      card.dataset.matched = "true";
       lastClicked.dataset.matched = "true";
 
-      //flash matched cards
-      let color = event.target.classList[0];
-      event.target.style.backgroundColor = "white";
-      lastClicked.style.backgroundColor = "white";
-      setTimeout(function(){
-        lastClicked.style.backgroundColor = color;
-        event.target.style.backgroundColor = color;
-        lastClicked = null;
-      }, 60);
+      // flash matched cards
+      let color = card.firstChild.classList[0];
 
+      setTimeout(function() {
+        lastClicked.firstChild.style.backgroundColor = "white";
+        card.firstChild.style.backgroundColor = "white";
+
+        setTimeout(function() {
+        lastClicked.firstChild.style.backgroundColor = color;
+        card.firstChild.style.backgroundColor = color;
+        lastClicked = null;
+        }, 260);
+       }, 350);
+      
       //check if game is over
       let cards = document.querySelectorAll("div div");
       for(let card of cards) {
 
         //game not over
-        if (card.dataset.matched === "false"){
+        if (card.dataset.matched === "false") {
           addClickEvent();
           return;
         }
@@ -155,11 +154,14 @@ function handleCardClick(event) {
 
     // not a match, flip both over
     } else { 
-      setTimeout(function(){ 
-        event.target.classList.add("cardback");
-        lastClicked.classList.add("cardback");
+      setTimeout(function() { 
+        card.classList.remove("flip");
+        card.dataset.flipped = false;
+
+        lastClicked.classList.remove("flip");
+        lastClicked.dataset.flipped = false;
         addClickEvent();
-      }, 750)
+      }, 800);
     }
   }
 }
@@ -175,10 +177,10 @@ function highScore() {
   count.innerText = ("High Score: "+score);
 
   //check for high score
-  if (clickCounter == 0){
+  if (clickCounter == 0) {
     return
   } else { // new high score
-    if (localStorage.getItem("highScore") == 0 | clickCounter < localStorage.getItem("highScore")){
+    if (localStorage.getItem("highScore") == 0 | clickCounter < localStorage.getItem("highScore")) {
       localStorage.setItem("highScore", clickCounter)
       let count = document.getElementById("score");
       count.innerText = ("High Score: "+score);
@@ -210,11 +212,12 @@ function removeClickEvent() {
 }
 
 // initialization method
-document.addEventListener("DOMContentLoaded", function(){
-  let shuffledColors = shuffle(COLORS); //creates order of cards
-  createDivsForColors(shuffledColors); // when the DOM loads, shuffle colors, then create Divs
-  addClickEvent();                    // adds click event listener to play
-  highScore();                       // loads previous high score (if any)
+document.addEventListener("DOMContentLoaded", function() {
+  let pairedColors = [...COLORS, ...COLORS];   // doubles colors array so we have pairs
+  let shuffledColors = shuffle(pairedColors); // shuffle colors, this is our card order
+  createDivsForColors(shuffledColors);       // create Divs on the page for each card in array
+  addClickEvent();                          // adds click event listener to play
+  highScore();                             // loads previous high score (if any)
 })
 
 // for troubleshooting:
