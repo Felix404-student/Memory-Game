@@ -1,16 +1,5 @@
-#game div {
-  border: 2px solid black;
-  width: 11%;
-  height: calc(95vh / 4);
-  margin: 8px;
-  display: inline-block;
-  color: white;
-  border-radius: 10px;
+body {
   background-color: BlanchedAlmond;
-}
-
-div div:hover {
-  cursor: pointer;
 }
 
 h1 {
@@ -20,23 +9,62 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.reset {
-  float: right;
-}
-
-.cardback {
-  background-image: url("cardback.png");
-  background-size: 100% 100%;
-}
-
-body {
-  background-color: BlanchedAlmond;
+  margin: 0;
 }
 
 h2 {
   background-color: BlanchedAlmond;
   color: black;
   font-family: 'Lora', serif;
+  margin: 10px;
+}
+
+.reset {
+  float: right;
+}
+
+#game div {
+  width: 10vw;
+  height: 26vh;
+  margin: 8px;
+  display: inline-block;
+  border-radius: 10px;
+  perspective: 1000px;
+}
+
+div div:hover {
+  cursor: pointer;
+}
+
+.game-card {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+  transition: transform 0.9s;
+  transform-style: preserve-3d;
+}
+
+.card-front, .card-back {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  right: -7.5%;
+  top: -3.2%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.card-front {
+  transform: rotateY( -180deg );
+}
+
+.card-back {
+  background-image: url("cardback.png");
+  background-size: 100% 100%;
+}
+
+.game-card.flip {
+  transform: rotateY( 180deg );
 }
