@@ -19,16 +19,21 @@ h2 {
   margin: 10px;
 }
 
-.reset {
-  float: right;
+.card-front, .card-back {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  right: -7.5%;
+  top: -3.2%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 #game div {
   width: 10vw;
   height: 26vh;
-  margin: 8px;
+  margin: 7px;
   display: inline-block;
-  border-radius: 10px;
   perspective: 1000px;
 }
 
@@ -40,8 +45,10 @@ div div:hover {
   width: 100%;
   height: 100%;
   align-items: center;
+  display: flex;
   justify-content: center;
   border: 2px solid black;
+  border-radius: 10px;
   transition: transform 0.9s;
   transform-style: preserve-3d;
 }
@@ -50,14 +57,15 @@ div div:hover {
   position: fixed;
   height: 100%;
   width: 100%;
-  right: -7.5%;
-  top: -3.2%;
+  right: -0.41vw; /*-4.1 for laptop fullscreen*/
+  top: -0.7vh; /*-2.7 for laptop fullscreen*/
+  border-radius: 10px;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
 .card-front {
-  transform: rotateY( -180deg );
+  transform: rotateY( 180deg );
 }
 
 .card-back {
@@ -66,5 +74,5 @@ div div:hover {
 }
 
 .game-card.flip {
-  transform: rotateY( 180deg );
+  transform: rotateY( -180deg );
 }

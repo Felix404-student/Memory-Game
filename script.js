@@ -135,8 +135,8 @@ function handleCardClick(event) {
         lastClicked.firstChild.style.backgroundColor = color;
         card.firstChild.style.backgroundColor = color;
         lastClicked = null;
-        }, 260);
-       }, 350);
+        }, 220);
+       }, 370);
       
       //check if game is over
       let cards = document.querySelectorAll("div div");
